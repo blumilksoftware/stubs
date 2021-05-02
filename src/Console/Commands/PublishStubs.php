@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Blumilk\Stubs\Console\Commands;
 
+use Blumilk\Stubs\Filesystem\CodebaseMAnager;
+use Blumilk\Stubs\Filesystem\StubsDirectoryManager;
 use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
 
 class PublishStubs extends Command
 {
@@ -13,53 +14,33 @@ class PublishStubs extends Command
     protected $signature = "blumilk:stubs {--copy}";
     protected $description = "Provide a new codestyle to the Laravel stubs";
 
-    public function handle(Filesystem $filesystem): void
+    public function handle(CodebaseManager $codebaseManager, StubsDirectoryManager $stubsDirectoryManager): void
     {
         $directory = $this->getStubsPath();
 
-        if ($filesystem->exists($directory)) {
+        if ($codebaseManager->check($directory)) {
             $this->warn("There's already a stubs directory.");
-            $agreement = $this->confirm("Please confirm you want to remove existing stubs:");
-
-            if (!$agreement) {
+            if (!$this->confirm("Please confirm you want to remove existing stubs:")) {
                 $this->info("Nothing has been done.");
                 return;
             }
 
-            if ($filesystem->isDirectory($directory)) {
-                $filesystem->deleteDirectory($directory);
-            } else {
-                $filesystem->delete($directory);
-            }
-
+            $codebaseManager->clean($directory);
             $this->info("Existing ./stubs has been deleted.");
         }
 
         if ($this->option("copy")) {
-            $filesystem->copyDirectory(
-                directory: $this->getVendorPath(),
-                destination: $directory,
-            );
-
+            $stubsDirectoryManager->copy($this->getStubsPath());
             $this->info("Stubs have been copied.");
             return;
         }
 
-        $filesystem->link(
-            target: $this->getVendorPath(),
-            link: $directory,
-        );
-
+        $stubsDirectoryManager->link($this->getStubsPath());
         $this->info("Stubs have been linked.");
     }
 
     protected function getStubsPath(): string
     {
         return base_path("stubs");
-    }
-
-    protected function getVendorPath(): string
-    {
-        return base_path("vendor/blumilksoftware/stubs/stubs");
     }
 }
