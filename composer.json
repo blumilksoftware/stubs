@@ -3,25 +3,33 @@
   "description": "Laravel stubs refactored and consistent with the Blumilk codestyle.",
   "require": {
     "php": "^8.0",
-    "illuminate/support": "^8.40.0",
-    "illuminate/console": "^8.40.0"
+    "illuminate/console": "^8.40.0",
+    "illuminate/filesystem": "^8.40.0",
+    "illuminate/support": "^8.40.0"
   },
   "require-dev": {
-    "blumilksoftware/codestyle": "^0.3"
+    "blumilksoftware/codestyle": "^0.3",
+    "illuminate/testing": "^8.40.0",
+    "phpunit/phpunit": "^9.0"
   },
   "autoload": {
     "psr-4": {
       "Blumilk\\Stubs\\": "src/"
     }
   },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  },
   "extra": {
     "laravel": {
       "providers": [
-        "Blumilk\\Stubs\\ServiceProvider"
+        "Blumilk\\Stubs\\BlumilkStubsServiceProvider"
       ]
     }
   },
   "scripts": {
+    "test": "./vendor/bin/phpunit tests",
     "ecs": "./vendor/bin/ecs check",
     "ecsf": "./vendor/bin/ecs check --fix"
   }
