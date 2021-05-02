@@ -27,5 +27,5 @@ jobs:
       - name: Run code style checker
         run: docker-compose run php composer ecs
 
-      - name: Run Behat tests
+      - name: Run tests
         run: docker-compose run php composer test
