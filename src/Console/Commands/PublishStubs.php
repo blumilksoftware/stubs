@@ -23,6 +23,7 @@ class PublishStubs extends Command
 
             if (!$agreement) {
                 $this->info("Nothing has been done.");
+                return;
             }
 
             if ($filesystem->isDirectory($directory)) {
