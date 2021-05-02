@@ -1,0 +1,42 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\Controller;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class {{ class }} extends Controller
+{
+    public function index(): Response|View
+    {
+    }
+
+    public function create(): Response|View
+    {
+    }
+
+    public function store(Request $request): Response|View
+    {
+    }
+
+    public function show({{ model }} ${{ modelVariable }}): Response|View
+    {
+    }
+
+    public function edit({{ model }} ${{ modelVariable }}): Response|View
+    {
+    }
+
+    public function update(Request $request, {{ model }} ${{ modelVariable }}): Response|View
+    {
+    }
+
+    public function destroy({{ model }} ${{ modelVariable }}): Response|View
+    {
+    }
+}
