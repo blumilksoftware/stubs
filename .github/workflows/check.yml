@@ -1,0 +1,31 @@
+name: Test & codestyle check
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: docker-compose run php composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Run code style checker
+        run: docker-compose run php composer ecs
+
+      - name: Run Behat tests
+        run: docker-compose run php composer test
