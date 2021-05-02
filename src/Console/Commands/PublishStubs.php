@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Blumilk\Stubs\Console\Commands;
 
-use Blumilk\Stubs\Filesystem\CodebaseMAnager;
+use Blumilk\Stubs\Filesystem\CodebaseManager;
 use Blumilk\Stubs\Filesystem\StubsDirectoryManager;
 use Illuminate\Console\Command;
 

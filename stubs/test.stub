@@ -12,7 +12,7 @@ class {{ class }} extends TestCase
 {
     public function testRoot(): void
     {
-        $response = $this->get('/');
+        $response = $this->get("/");
         $response->assertStatus(200);
     }
 }
