@@ -30,12 +30,12 @@ class PublishStubs extends Command
         }
 
         if ($this->option("copy")) {
-            $stubsDirectoryManager->copy($this->getStubsPath());
+            $stubsDirectoryManager->copy($directory);
             $this->info("Stubs have been copied.");
             return;
         }
 
-        $stubsDirectoryManager->link($this->getStubsPath());
+        $stubsDirectoryManager->link($directory);
         $this->info("Stubs have been linked.");
     }
 
