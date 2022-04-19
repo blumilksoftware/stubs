@@ -1,4 +1,4 @@
-name: Test & codestyle check
+name: "Checking the package: testing and linting"
 
 on:
   push:
@@ -8,10 +8,21 @@ on:
 
 jobs:
   check:
+    name: "Checking the package: testing and linting"
     runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        php: ["8.0", "8.1"]
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
 
       - name: Cache composer dependencies
         uses: actions/cache@v2
@@ -20,12 +31,14 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
+      - name: Validate composer.json
+        run: composer validate
 
       - name: Install dependencies
-        run: docker-compose run php composer install --prefer-dist --no-progress --no-suggest
+        run: composer install --prefer-dist --no-progress
 
       - name: Run code style checker
-        run: docker-compose run php composer ecs
+        run: composer cs
 
       - name: Run tests
-        run: docker-compose run php composer test
+        run: composer test

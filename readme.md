@@ -37,7 +37,7 @@ dcr php composer test
 
 Run codestyle check:
 ```
-dcr php composer ecs
+dcr php composer cs
 ```
 
 Please maintain our project guidelines:
