@@ -1,6 +1,8 @@
 {
   "name": "blumilksoftware/stubs",
   "description": "Laravel stubs refactored and consistent with the Blumilk codestyle.",
+  "type": "library",
+  "license": "MIT",
   "require": {
     "php": "^8.0",
     "illuminate/console": "^8.40.0",
