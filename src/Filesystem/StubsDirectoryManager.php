@@ -8,12 +8,9 @@ use Illuminate\Filesystem\Filesystem;
 
 class StubsDirectoryManager
 {
-    protected Filesystem $filesystem;
-
-    public function __construct(Filesystem $filesystem)
-    {
-        $this->filesystem = $filesystem;
-    }
+    public function __construct(
+        protected Filesystem $filesystem,
+    ) {}
 
     public function link(string $directory): void
     {

@@ -15,7 +15,7 @@ class BlumilkStubsServiceProvider extends ServiceProvider
             $this->commands(
                 [
                     PublishStubs::class,
-                ]
+                ],
             );
         }
     }
